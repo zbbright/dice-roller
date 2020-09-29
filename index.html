@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Dice Roller</h1>
+    </header>
+    <main>
+        <details id="dice-menu">
+            <summary>Dice Selector</summary>
+            <ul>
+                <li class="button-menu"><button class="menu-button" id="die4">4-Sided</button></li>
+                <li class="button-menu"><button class="menu-button" id="die6">6-Sided (default)</button></li>
+                <li class="button-menu"><button class="menu-button" id="die8">8-Sided</button></li>
+                <li class="button-menu"><button class="menu-button" id="die10">10-Sided</button></li>
+                <li class="button-menu"><button class="menu-button" id="die12">12-Sided</button></li>
+                <li class="button-menu"><button class="menu-button" id="die20">20-Sided</button></li>
+            </ul>
+        </details>
+        <button id="reset">Reset</button>
+        <input type="number" id="input" placeholder="Number of dice (1)">
+        <button id="roll">Roll!</button>
+        <h3 id="total-header">Total:</h3>
+        <p id="total-display"> </p>
+        <button id="show-rolls">Show/Hide Dice</button>
+        <ol id="roll-list"></ol>
+    </main>
+    <script rel="javascript" src="./script.js"></script>
+</body>
+</html>
