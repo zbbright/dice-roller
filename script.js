@@ -10,7 +10,7 @@ const die8 = document.querySelector('#die8')
 const die10 = document.querySelector('#die10')
 const die12 = document.querySelector('#die12')
 const die20 = document.querySelector('#die20')
-const diceArr = []
+const dieRolls = []
 const dieFaceArr = []
 const faces = ["&#9856;", "&#9857;", "&#9858;", "&#9859;", "&#9860;", "&#9861;", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 const menuButtons =  document.querySelectorAll('.menu-button')
@@ -24,16 +24,16 @@ let diceSides = 6
 function diceDisplay(){
     rollList.innerHTML = "";
 
-    while (i < diceArr.length){
-        let face = diceArr[i] - 1;
+    while (i < dieRolls.length){
+        let face = dieRolls[i] - 1;
         dieFaceArr.push(faces[face]);
         i++;
         }
     i = 0;
 
     if (diceDisplayOn === true){
-        while (i < diceArr.length){
-        rollList.innerHTML += "<li>" + dieFaceArr[i] + "(" + diceArr[i] + ")</li>";
+        while (i < dieRolls.length){
+        rollList.innerHTML += "<li>" + dieFaceArr[i] + "(" + dieRolls[i] + ")</li>";
         i++;
         }
     }
@@ -45,11 +45,11 @@ input.addEventListener('input', function(){
 })
 
 roll.addEventListener('click', function(){
-    diceArr.splice(0);
+    dieRolls.splice(0);
     dieFaceArr.splice(0);
     while (i < diceNum){
         let die = Math.round(Math.random() * (diceSides - 0.01) + 0.5);
-        diceArr.push(die);
+        dieRolls.push(die);
         total += Number(die);
         i++;
     }
@@ -80,6 +80,7 @@ reset.addEventListener('click', function(){
         menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
         i++;
     }
+    menuButtons[1].style.backgroundImage = 'none';
 })
 
 die4.addEventListener('click', function(){
