@@ -22,6 +22,7 @@ button, input{
     box-shadow: 2px 1px 5px 2px lightgrey;
     border-radius: 3px;
     background-image: linear-gradient(lightgrey, white, lightgrey);
+    background-color: gray;
 }
 
 li, p{

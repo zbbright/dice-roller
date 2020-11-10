@@ -4,143 +4,84 @@ const totalDisplay = document.querySelector('#total-display')
 const showRolls = document.querySelector('#show-rolls')
 const rollList = document.querySelector('#roll-list')
 const reset = document.querySelector('#reset')
-const die4 = document.querySelector('#die4')
-const die6 = document.querySelector('#die6')
-const die8 = document.querySelector('#die8')
-const die10 = document.querySelector('#die10')
-const die12 = document.querySelector('#die12')
-const die20 = document.querySelector('#die20')
-const dieRolls = []
-const dieFaceArr = []
 const faces = ["&#9856;", "&#9857;", "&#9858;", "&#9859;", "&#9860;", "&#9861;", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-const menuButtons =  document.querySelectorAll('.menu-button')
+const menuButtons = document.querySelectorAll('.menu-button')
+const dieType = [4, 6, 8, 10, 12, 20]
 
 let diceNum = 1
-let i = 0
 let diceDisplayOn = false
 let total = 0
 let diceSides = 6
+let dieRolls = []
+let dieFaceArr = []
+
+let active='none'
+let inactive='linear-gradient(lightgrey, white, lightgrey)'
 
 function diceDisplay(){
-    rollList.innerHTML = "";
-
-    while (i < dieRolls.length){
-        let face = dieRolls[i] - 1;
-        dieFaceArr.push(faces[face]);
-        i++;
-        }
-    i = 0;
-
-    if (diceDisplayOn === true){
-        while (i < dieRolls.length){
-        rollList.innerHTML += "<li>" + dieFaceArr[i] + "(" + dieRolls[i] + ")</li>";
-        i++;
-        }
-    }
-    i = 0;
-}
+    rollList.innerHTML="";
+    for(let i=0; i<dieRolls.length; i++){
+        let face=dieRolls[i]-1;
+        dieFaceArr.push(faces[face]);}
+    if(diceDisplayOn===true){
+        for(let i=0; i<dieRolls.length; i++){
+        rollList.innerHTML+=`<li>${dieFaceArr[i]}(${dieRolls[i]})</li>`;
+        }}}
 
 input.addEventListener('input', function(){
-    diceNum = input.value;
-})
+    diceNum=input.value;})
 
 roll.addEventListener('click', function(){
+    roll.style.backgroundImage=active;
     dieRolls.splice(0);
     dieFaceArr.splice(0);
-    while (i < diceNum){
-        let die = Math.round(Math.random() * (diceSides - 0.01) + 0.5);
+    for(let i=0; i<diceNum; i++){
+        let die=Math.floor(Math.random()*diceSides+1);
         dieRolls.push(die);
-        total += Number(die);
-        i++;
-    }
-    totalDisplay.innerHTML = total;
-    i = 0;
-    total = 0;
+        total+=die;}
+    totalDisplay.innerHTML=total;
+    total=0;
     diceDisplay();
-})
+    setTimeout(() => roll.style.backgroundImage=inactive, 20);
+    })
 
 showRolls.addEventListener('click', function(){
-    if (diceDisplayOn === false){
-        diceDisplayOn = true;
-        showRolls.innerHTML = "Hide Dice";
-    } else if (diceDisplayOn === true){
-        diceDisplayOn = false;
-        showRolls.innerHTML = "Show Dice";
-    }
-    diceDisplay();
-})
+    showRolls.style.backgroundImage=active
+    if(diceDisplayOn){
+        diceDisplayOn=false;
+        showRolls.innerHTML="Show Dice";}
+        else{
+        diceDisplayOn=true;
+        showRolls.innerHTML="Hide Dice";}
+    setTimeout(() => showRolls.style.backgroundImage=inactive, 20);
+    diceDisplay();})
 
 reset.addEventListener('click', function(){
-    totalDisplay.innerHTML = "";
-    rollList.innerHTML = "";
-    input.value = "";
-    diceNum = 1;
-    diceSides = 6;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
+    reset.style.backgroundImage=active;
+    totalDisplay.innerHTML="";
+    rollList.innerHTML="";
+    input.value="";
+    diceNum=1;
+    diceSides=6;
+    dieFaceArr = [];
+    dieRolls = [];
+    diceDisplayOn = false;
+    showRolls.innerHTML="Show/Hide Dice";
+    document.querySelector("details").removeAttribute("open");
+    for(let i=0; i<menuButtons.length; i++){
+        menuButtons[i].style.backgroundImage=inactive;
     }
-    menuButtons[1].style.backgroundImage = 'none';
+    menuButtons[1].style.backgroundImage=active;
+    setTimeout(() => reset.style.backgroundImage=inactive, 20);
 })
 
-die4.addEventListener('click', function(){
-    diceSides = 4;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[0].style.backgroundImage = 'none';
-    i = 0;
-})
+for(let i=0; i<menuButtons.length; i++){
+    menuButtons[i].addEventListener('click', function(){
+        diceSides=dieType[i];
+        for(let j=0; j<menuButtons.length; j++){
+            menuButtons[j].style.backgroundImage=inactive;
+        }
+        menuButtons[i].style.backgroundImage=active;
+    })}
 
-die6.addEventListener('click', function(){
-    diceSides = 6;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[1].style.backgroundImage = 'none';
-    i = 0;
-})
-
-die8.addEventListener('click', function(){
-    diceSides = 8;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[2].style.backgroundImage = 'none';
-    i = 0;
-})
-
-die10.addEventListener('click', function(){
-    diceSides = 10;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[3].style.backgroundImage = 'none';
-    i = 0;
-})
-
-die12.addEventListener('click', function(){
-    diceSides = 12;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[4].style.backgroundImage = 'none';
-    i = 0;
-})
-
-die20.addEventListener('click', function(){
-    diceSides = 20;
-    while (i < menuButtons.length){
-        menuButtons[i].style.backgroundImage = 'linear-gradient(lightgrey, white, lightgrey)';
-        i++;
-    }
-    menuButtons[5].style.backgroundImage = 'none';
-    i = 0;
-})
-
-menuButtons[1].style.backgroundImage = 'none';
+menuButtons[1].style.backgroundImage=active;
